@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeklaWPFViewModelToolkit", "TeklaWPFViewModelToolkit\TeklaWPFViewModelToolkit.csproj", "{C2E053D5-ABE2-46F3-AE99-A74251DC14DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeklaWPFViewModelGenerator", "TeklaWPFViewModelGenerator\TeklaWPFViewModelGenerator.csproj", "{15A4F589-B9ED-17BA-4639-D61C74EF9560}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C2E053D5-ABE2-46F3-AE99-A74251DC14DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2E053D5-ABE2-46F3-AE99-A74251DC14DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2E053D5-ABE2-46F3-AE99-A74251DC14DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2E053D5-ABE2-46F3-AE99-A74251DC14DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15A4F589-B9ED-17BA-4639-D61C74EF9560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15A4F589-B9ED-17BA-4639-D61C74EF9560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15A4F589-B9ED-17BA-4639-D61C74EF9560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15A4F589-B9ED-17BA-4639-D61C74EF9560}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4171073F-8926-480C-9581-E0AF825EF1B4}
+	EndGlobalSection
+EndGlobal
