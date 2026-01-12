@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeklaWPFViewModelToolkit", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeklaWPFViewModelGenerator", "TeklaWPFViewModelGenerator\TeklaWPFViewModelGenerator.csproj", "{15A4F589-B9ED-17BA-4639-D61C74EF9560}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeklaWPFViewModelGenerator.IntegrationTests", "TeklaWPFViewModelGenerator.IntegrationTests\TeklaWPFViewModelGenerator.IntegrationTests.csproj", "{D0526934-1F4C-442F-A1FA-B5B6CA100275}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{15A4F589-B9ED-17BA-4639-D61C74EF9560}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15A4F589-B9ED-17BA-4639-D61C74EF9560}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15A4F589-B9ED-17BA-4639-D61C74EF9560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0526934-1F4C-442F-A1FA-B5B6CA100275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0526934-1F4C-442F-A1FA-B5B6CA100275}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0526934-1F4C-442F-A1FA-B5B6CA100275}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0526934-1F4C-442F-A1FA-B5B6CA100275}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

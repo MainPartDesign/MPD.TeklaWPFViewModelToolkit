@@ -25,7 +25,7 @@ namespace TeklaWPFViewModelGenerator
                 static (spc, source) => Execute(source.Left, source.Right, spc));
         }
 
-        private static ClassDeclarationSyntax? GetClassForGeneration(GeneratorSyntaxContext context)
+        private static ClassDeclarationSyntax GetClassForGeneration(GeneratorSyntaxContext context)
         {
             var classDeclaration = (ClassDeclarationSyntax)context.Node;
             
@@ -174,7 +174,7 @@ namespace TeklaWPFViewModelGenerator
 
                     // Generate TeklaWPFBinding property
                     sb.AppendLine($"        public TeklaWPFBinding<{typeName}> {pascalFieldName} {{ get; set; }} = " +
-                                  $"        new TeklaWPFBinding<{typeName}>(nameof({modelClassName}.{fieldName}));");
+                                  $"new TeklaWPFBinding<{typeName}>(nameof({modelClassName}.{fieldName}));");
                     sb.AppendLine();
                 }
             }
