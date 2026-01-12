@@ -52,12 +52,12 @@ public class ViewModelTypeOverrideAttributeTest
         GeneratorAssertions.AssertFieldWithAttribute<double>(
             pluginModelType, _doubleAttrName, typeof(StructuresFieldAttribute),
             nameof(StructuresFieldAttribute.AttributeName), _doubleAttrName,
-            "The 'doubleCheck' field should exist with correct attribute");
+            "The 'strictDouble' field should exist with correct attribute");
 
         GeneratorAssertions.AssertFieldWithAttribute<int>(
             pluginModelType, _booleanAttrName, typeof(StructuresFieldAttribute),
             nameof(StructuresFieldAttribute.AttributeName), _booleanAttrName,
-            "The 'check' field should exist with correct attribute");
+            "The 'strictBoolean' field should exist with correct attribute");
     }
 
     [Fact]
@@ -70,21 +70,21 @@ public class ViewModelTypeOverrideAttributeTest
             
         GeneratorAssertions.AssertBindingProperty(
             viewModelType, "StrictBoolean", _booleanAttrName, typeof(TD.Boolean),
-            "Check property should be a TeklaWPFBinding for boolean type");
+            "StrictBoolean property should be a TeklaWPFBinding for boolean type");
             
         GeneratorAssertions.AssertBindingProperty(
             viewModelType, "StrictDouble", _doubleAttrName, typeof(TD.Double),
-            "DoubleCheck property should be a TeklaWPFBinding for double type");
+            "StrictDouble property should be a TeklaWPFBinding for double type");
 
         // Check internal properties with StructuresDialog attribute
         GeneratorAssertions.AssertInternalProperty(
             viewModelType, "InternalStrictBooleanProperty", _booleanAttrName, 
             typeof(TD.Boolean),
-            "InternalCheckProperty should exist for boolean field");
+            "InternalStrictBooleanProperty should exist for boolean field");
             
         GeneratorAssertions.AssertInternalProperty(
             viewModelType, "InternalStrictDoubleProperty", _doubleAttrName, 
             typeof(TD.Double),
-            "InternalDoubleCheckProperty should exist for double field");
+            "InternalStrictDoubleProperty should exist for double field");
     }
 }
