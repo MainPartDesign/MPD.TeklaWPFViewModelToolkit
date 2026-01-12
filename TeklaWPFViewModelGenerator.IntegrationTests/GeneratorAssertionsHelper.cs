@@ -14,7 +14,8 @@ public static class GeneratorAssertions
         Type type,
         string fieldName,
         Type attributeType,
-        string expectedFieldNameInAttribute,
+        string attributePropertyToCheck = null,
+        string expectedFieldNameInAttribute = null,
         string because = "")
     {
         var field = type.GetField(fieldName, BindingFlags.Public | BindingFlags.Instance);
@@ -25,10 +26,10 @@ public static class GeneratorAssertions
         var attribute = field.GetCustomAttribute(attributeType);
         Assert.NotNull(attribute);
 
-        // Check attribute properties if needed
-        var fieldNameProperty = attribute.GetType().GetProperty("AttributeName");
-        if (fieldNameProperty != null)
+        if (attributePropertyToCheck is not null)
         {
+            var fieldNameProperty = attribute.GetType().GetProperty(attributePropertyToCheck);
+            Assert.NotNull(fieldNameProperty);
             var actualFieldName = fieldNameProperty.GetValue(attribute) as string;
             Assert.Equal(expectedFieldNameInAttribute, actualFieldName);
         }
@@ -91,7 +92,6 @@ public static class GeneratorAssertions
         string propertyName,
         string expectedFieldName,
         Type expectedTeklaType,
-        Type originalType,
         string because = "")
     {
         var property = type.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
