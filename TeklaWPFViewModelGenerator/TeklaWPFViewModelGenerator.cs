@@ -12,6 +12,7 @@ namespace TeklaWPFViewModelGenerator
     class TeklaWPFViewModelGenerator : IIncrementalGenerator
     {
         private const string _targetAttributeName = "TeklaWPFViewModelToolkit.TemplateToGenerateAttribute";
+        private const string _overrideViewModelAttrName = "ViewModelTypeOverrideAttribute";
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
             var provider = context.SyntaxProvider.CreateSyntaxProvider(
@@ -203,7 +204,7 @@ namespace TeklaWPFViewModelGenerator
 
                     if (attributeType != null && 
                         attributeType.IsGenericType && 
-                        attributeType.Name == "ViewModelTypeOverrideAttribute")
+                        attributeType.Name == _overrideViewModelAttrName)
                     {
                         var genericArgument = attributeType.TypeArguments.FirstOrDefault();
                         if (genericArgument != null)

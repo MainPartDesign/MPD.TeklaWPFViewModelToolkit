@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "Profile 1": {
+    "DebugSourceGenerator": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\WPFPlugin\\WPFPlugin.csproj"
-    },
+      "targetProject": "..\\TeklaWPFViewModelGenerator.IntegrationTests\\TeklaWPFViewModelGenerator.IntegrationTests.csproj"
+    }
   }
 }
