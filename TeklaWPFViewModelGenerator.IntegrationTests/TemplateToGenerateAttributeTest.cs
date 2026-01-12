@@ -75,15 +75,15 @@ public class TemplateToGenerateAttributeTest
         GeneratorAssertions.AssertPropertyChangeEvent(viewModelType,
             "ViewModel should implement INotifyPropertyChanged");
 
-        GeneratorAssertions.AssertBindingProperty<string>(
+        GeneratorAssertions.AssertBindingProperty(
             viewModelType, "Test", _stringAttrName, typeof(Tekla.Structures.Datatype.String),
             "Test property should be a TeklaWPFBinding for string type");
             
-        GeneratorAssertions.AssertBindingProperty<int>(
+        GeneratorAssertions.AssertBindingProperty(
             viewModelType, "Check", _intAttrName, typeof(Tekla.Structures.Datatype.Integer),
             "Check property should be a TeklaWPFBinding for int type");
             
-        GeneratorAssertions.AssertBindingProperty<double>(
+        GeneratorAssertions.AssertBindingProperty(
             viewModelType, "DoubleCheck", _doubleAttrName, typeof(Tekla.Structures.Datatype.Distance),
             "DoubleCheck property should be a TeklaWPFBinding for double type");
 

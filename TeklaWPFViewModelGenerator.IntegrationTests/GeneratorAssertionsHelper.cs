@@ -35,7 +35,7 @@ public static class GeneratorAssertions
         }
     }
 
-    public static void AssertBindingProperty<T>(
+    public static void AssertBindingProperty(
         Type type,
         string propertyName,
         string expectedFieldName,
