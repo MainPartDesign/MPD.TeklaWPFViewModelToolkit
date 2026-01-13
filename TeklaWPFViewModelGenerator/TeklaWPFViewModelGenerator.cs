@@ -13,11 +13,12 @@ namespace MPD.TeklaWPFViewModelGenerator
     {
         private const string _targetAttributeName = "MPD.TeklaWPFViewModelToolkit.TemplateToGenerateAttribute";
         private const string _overrideViewModelAttrName = "ViewModelTypeOverrideAttribute";
+        private const string _useInitializerOutsideRangeAttName = "UseInitializerValueOutsideRange";
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
             var provider = context.SyntaxProvider.CreateSyntaxProvider(
                predicate: static (node, _) => node is ClassDeclarationSyntax,
-               transform: static (ctx, _) => GetClassForGeneration(ctx) 
+               transform: static (ctx, _) => GetClassForGeneration(ctx)
             ).Where(m => m is not null);
 
             var compilation = context.CompilationProvider.Combine(provider.Collect());
@@ -29,7 +30,7 @@ namespace MPD.TeklaWPFViewModelGenerator
         private static ClassDeclarationSyntax GetClassForGeneration(GeneratorSyntaxContext context)
         {
             var classDeclaration = (ClassDeclarationSyntax)context.Node;
-            
+
             foreach (var attributeList in classDeclaration.AttributeLists)
             {
                 foreach (var attribute in attributeList.Attributes)
@@ -82,7 +83,7 @@ namespace MPD.TeklaWPFViewModelGenerator
         }
 
 
-        private static Tuple<string?,string?>? GetTemplateAttributeData(ISymbol classSymbol)
+        private static Tuple<string?, string?>? GetTemplateAttributeData(ISymbol classSymbol)
         {
             foreach (var attribute in classSymbol.GetAttributes())
             {
@@ -105,7 +106,7 @@ namespace MPD.TeklaWPFViewModelGenerator
         {
             var sb = new StringBuilder();
 
-            
+
             sb.AppendLine("using System;");
             sb.AppendLine("using Tekla.Structures.Plugins;");
             sb.AppendLine("using MPD.TeklaWPFViewModelToolkit;");
@@ -119,6 +120,10 @@ namespace MPD.TeklaWPFViewModelGenerator
 
             foreach (var field in fields)
             {
+                var rangeAttr = field.AttributeLists
+                            .SelectMany(al => al.Attributes)
+                            .FirstOrDefault(a => a.Name.ToString().Contains(_useInitializerOutsideRangeAttName));
+
                 foreach (var variable in field.Declaration.Variables)
                 {
                     string typeName = field.Declaration.Type.ToString();
@@ -127,13 +132,16 @@ namespace MPD.TeklaWPFViewModelGenerator
                     string propertyName = GetPublicPropertyName(fieldName);
                     string defaultValue =
                         variable.Initializer is null ? "default" : variable.Initializer.Value.ToString();
-                    
+
                     sb.AppendLine($"        [StructuresField(nameof({propertyName}))]");
                     sb.AppendLine($"        public {typeName} {internalFieldName};");
                     sb.AppendLine($"        private const {typeName} {internalFieldName}Default = {defaultValue};");
                     sb.AppendLine($"        public {typeName} {propertyName}");
                     sb.AppendLine("        {");
-                    sb.AppendLine($"            get {{ return DefaultValueHelper.IsDefaultValue({internalFieldName}) ? {internalFieldName}Default : {internalFieldName}; }}");
+                    sb.AppendLine($"            get");
+                    sb.AppendLine("            {");
+                    AppendPropertyGetterBody(sb, typeName, internalFieldName, rangeAttr);
+                    sb.AppendLine("            }");
                     sb.AppendLine($"            set {{ {internalFieldName} = value; }}");
                     sb.AppendLine("        }");
                     sb.AppendLine();
@@ -143,6 +151,35 @@ namespace MPD.TeklaWPFViewModelGenerator
             sb.AppendLine("    }");
             sb.AppendLine("}");
             return sb.ToString();
+        }
+        private static void AppendPropertyGetterBody(
+            StringBuilder sb,
+            string typeName,
+            string internalFieldName,
+            AttributeSyntax rangeAttr)
+        {
+            if (rangeAttr?.ArgumentList is null || rangeAttr.ArgumentList.Arguments.Count < 2)
+            {
+                // Default check with helper if attrubute UseInitializerValueOutsideRange is missing.
+                sb.AppendLine($"                if (DefaultValueHelper.IsDefaultValue({internalFieldName})) return {internalFieldName}Default;");
+            }
+            else
+            {
+                var min = rangeAttr.ArgumentList.Arguments[0].Expression.ToString();
+                var max = rangeAttr.ArgumentList.Arguments[1].Expression.ToString();
+
+                if (typeName == "string")
+                {
+                    sb.AppendLine($"                if ({internalFieldName}.Length < {min} || {internalFieldName}.Length > {max})");
+                    sb.AppendLine($"                    return {internalFieldName}Default;");
+                }
+                else if (typeName == "int" || typeName == "double")
+                {
+                    sb.AppendLine($"                if ({internalFieldName} < {min} || {internalFieldName} > {max})");
+                    sb.AppendLine($"                    return {internalFieldName}Default;");
+                }
+            }
+            sb.AppendLine($"                return {internalFieldName};");
         }
 
         private static string GenerateViewModelClass(
