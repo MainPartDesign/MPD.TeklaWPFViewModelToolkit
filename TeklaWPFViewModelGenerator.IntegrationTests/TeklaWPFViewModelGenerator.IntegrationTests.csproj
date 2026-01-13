@@ -4,6 +4,8 @@
 	<TargetFramework>net48</TargetFramework>
     <IsPackable>false</IsPackable>
 	<LangVersion>11.0</LangVersion>
+	<RootNamespace>MPD.TeklaWPFViewModelGenerator.IntegrationTests</RootNamespace>
+
   </PropertyGroup>
 
   <ItemGroup>

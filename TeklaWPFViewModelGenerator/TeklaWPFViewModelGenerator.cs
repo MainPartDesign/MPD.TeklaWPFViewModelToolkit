@@ -108,6 +108,7 @@ namespace MPD.TeklaWPFViewModelGenerator
             
             sb.AppendLine("using System;");
             sb.AppendLine("using Tekla.Structures.Plugins;");
+            sb.AppendLine("using MPD.TeklaWPFViewModelToolkit;");
             sb.AppendLine(GetNamespaceLine(templateClass));
             sb.AppendLine("{");
             sb.AppendLine();
@@ -120,11 +121,21 @@ namespace MPD.TeklaWPFViewModelGenerator
             {
                 foreach (var variable in field.Declaration.Variables)
                 {
-                    var typeName = field.Declaration.Type.ToString();
-                    var fieldName = variable.Identifier.Text;
+                    string typeName = field.Declaration.Type.ToString();
+                    string fieldName = variable.Identifier.Text;
+                    string internalFieldName = GetInternalFieldName(fieldName);
+                    string propertyName = GetPublicPropertyName(fieldName);
+                    string defaultValue =
+                        variable.Initializer is null ? "default" : variable.Initializer.Value.ToString();
                     
-                    sb.AppendLine($"        [StructuresField(nameof({fieldName}))]");
-                    sb.AppendLine($"        public {typeName} {fieldName};");
+                    sb.AppendLine($"        [StructuresField(nameof({propertyName}))]");
+                    sb.AppendLine($"        public {typeName} {internalFieldName};");
+                    sb.AppendLine($"        private const {typeName} {internalFieldName}Default = {defaultValue};");
+                    sb.AppendLine($"        public {typeName} {propertyName}");
+                    sb.AppendLine("        {");
+                    sb.AppendLine($"            get {{ return DefaultValueHelper.IsDefaultValue({internalFieldName}) ? {internalFieldName}Default : {internalFieldName}; }}");
+                    sb.AppendLine($"            set {{ {internalFieldName} = value; }}");
+                    sb.AppendLine("        }");
                     sb.AppendLine();
                 }
             }
@@ -163,11 +174,11 @@ namespace MPD.TeklaWPFViewModelGenerator
                 {
                     var typeName = GetViewModelPropertyType(semanticModel, field);
                     var fieldName = variable.Identifier.Text;
-                    var pascalFieldName = char.ToUpper(fieldName[0]) + fieldName.Substring(1);
+                    var pascalFieldName = GetPublicPropertyName(fieldName);
 
                     // Generate internal property
-                    sb.AppendLine($"        [StructuresDialog(nameof({modelClassName}.{fieldName}), typeof({typeName}))]");
-                    sb.AppendLine($"        public {typeName} Internal{pascalFieldName}Property");
+                    sb.AppendLine($"        [StructuresDialog(nameof({modelClassName}.{pascalFieldName}), typeof({typeName}))]");
+                    sb.AppendLine($"        public {typeName} Tekla{pascalFieldName}Property");
                     sb.AppendLine("        {");
                     sb.AppendLine($"            get {{ return {pascalFieldName}.Value; }}");
                     sb.AppendLine($"            set {{ {pascalFieldName}.Value = value; }}");
@@ -175,7 +186,7 @@ namespace MPD.TeklaWPFViewModelGenerator
 
                     // Generate TeklaWPFBinding property
                     sb.AppendLine($"        public TeklaWPFBinding<{typeName}> {pascalFieldName} {{ get; set; }} = " +
-                                  $"new TeklaWPFBinding<{typeName}>(nameof({modelClassName}.{fieldName}));");
+                                  $"new TeklaWPFBinding<{typeName}>(nameof({modelClassName}.{pascalFieldName}));");
                     sb.AppendLine();
                 }
             }
@@ -236,5 +247,29 @@ namespace MPD.TeklaWPFViewModelGenerator
             }
             return nameSpaceLine;
         }
+        private static string GetPublicPropertyName(string name)
+        {
+            if (name.Length > 1)
+            {
+                return char.ToUpper(name[0]) + name.Substring(1);
+            }
+            else
+            {
+                return "Property_" + name;
+            }
+        }
+
+        private static string GetInternalFieldName(string name)
+        {
+            if (name.Length > 1)
+            {
+                return $"_{char.ToLower(name[0])}{name.Substring(1)}";
+            }
+            else
+            {
+                return "_internal_" + name;
+            }
+        }
+
     }
 }

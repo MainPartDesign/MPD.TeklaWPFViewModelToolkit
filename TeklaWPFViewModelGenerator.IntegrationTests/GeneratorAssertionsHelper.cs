@@ -87,27 +87,22 @@ public static class GeneratorAssertions
         }
     }
 
-    public static void AssertInternalProperty(
+    public static void AssertTeklaProperty<T>(
         Type type,
         string propertyName,
         string expectedFieldName,
-        Type expectedTeklaType,
         string because = "")
     {
-        var property = type.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
-
-        Assert.True(property != null,
-            $"Property '{propertyName}' not found on type '{type.Name}'. {because}");
-
-        Assert.Equal(expectedTeklaType, property.PropertyType);
+        AssertProperty<T>(type, propertyName, because);
 
         // Check for StructuresDialog attribute
+        var property = type.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
         var attribute = property.GetCustomAttribute<StructuresDialogAttribute>();
         Assert.True(attribute != null,
             $"Property '{propertyName}' is missing StructuresDialogAttribute. {because}");
 
         Assert.Equal(expectedFieldName, attribute.AttributeName);
-        Assert.Equal(expectedTeklaType, attribute.AttributeType);
+        Assert.Equal(typeof(T), attribute.AttributeType);
 
         // Check getter and setter
         var getter = property.GetGetMethod();
@@ -117,6 +112,19 @@ public static class GeneratorAssertions
         var setter = property.GetSetMethod();
         Assert.True(setter != null,
             $"Property '{propertyName}' has no setter. {because}");
+    }
+
+    public static void AssertProperty<T>(
+        Type type,
+        string propertyName,
+        string because = "")
+    {
+        var property = type.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
+
+        Assert.True(property != null,
+            $"Property '{propertyName}' not found on type '{type.Name}'. {because}");
+
+        Assert.Equal(typeof(T), property.PropertyType);
     }
 
     public static void AssertPropertyChangeEvent(Type type, string because = "")
@@ -129,5 +137,18 @@ public static class GeneratorAssertions
             $"Type '{type.Name}' has no PropertyChanged event. {because}");
 
         Assert.Equal(typeof(PropertyChangedEventHandler), eventInfo.EventHandlerType);
+    }
+
+    public static void AssertDefaultValueConstant<T>(Type type, string constantName, T expectedValue)
+    {
+        var constant = type.GetField(constantName, 
+            BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance);
+        
+        Assert.NotNull(constant);
+        Assert.True(constant.IsLiteral && !constant.IsInitOnly);
+        Assert.Equal(typeof(T), constant.FieldType);
+        
+        var value = constant.GetValue(null);
+        Assert.Equal(expectedValue, value);
     }
 }
