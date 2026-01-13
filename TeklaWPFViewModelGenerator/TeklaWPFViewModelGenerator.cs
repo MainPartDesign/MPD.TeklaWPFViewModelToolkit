@@ -185,8 +185,9 @@ namespace MPD.TeklaWPFViewModelGenerator
                     sb.AppendLine("        }");
 
                     // Generate TeklaWPFBinding property
-                    sb.AppendLine($"        public TeklaWPFBinding<{typeName}> {pascalFieldName} {{ get; set; }} = " +
-                                  $"new TeklaWPFBinding<{typeName}>(nameof({modelClassName}.{pascalFieldName}));");
+                    sb.AppendLine($"        public TeklaWPFBinding<{typeName}> {pascalFieldName} {{ get; set; }} = ");
+                    sb.AppendLine($"            new TeklaWPFBinding<{typeName}>(nameof({modelClassName}.{pascalFieldName}));");
+                    sb.AppendLine();
                     sb.AppendLine();
                 }
             }
