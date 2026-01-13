@@ -6,12 +6,12 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 
-namespace TeklaWPFViewModelGenerator
+namespace MPD.TeklaWPFViewModelGenerator
 {
     [Generator]
     class TeklaWPFViewModelGenerator : IIncrementalGenerator
     {
-        private const string _targetAttributeName = "TeklaWPFViewModelToolkit.TemplateToGenerateAttribute";
+        private const string _targetAttributeName = "MPD.TeklaWPFViewModelToolkit.TemplateToGenerateAttribute";
         private const string _overrideViewModelAttrName = "ViewModelTypeOverrideAttribute";
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
@@ -146,7 +146,7 @@ namespace TeklaWPFViewModelGenerator
             sb.AppendLine("using System;");
             sb.AppendLine("using System.ComponentModel;");
             sb.AppendLine("using Tekla.Structures.Dialog;");
-            sb.AppendLine("using TeklaWPFViewModelToolkit;");
+            sb.AppendLine("using MPD.TeklaWPFViewModelToolkit;");
             sb.AppendLine(GetNamespaceLine(templateClass));
             sb.AppendLine("{");
             sb.AppendLine();

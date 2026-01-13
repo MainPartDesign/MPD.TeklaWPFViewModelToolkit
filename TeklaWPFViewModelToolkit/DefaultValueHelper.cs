@@ -1,4 +1,4 @@
-﻿namespace TeklaWPFViewModelToolkit;
+﻿namespace MPD.TeklaWPFViewModelToolkit;
 
 public static class DefaultValueHelper
 {

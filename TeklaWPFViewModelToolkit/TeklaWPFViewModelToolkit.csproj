@@ -4,10 +4,12 @@
     <TargetFramework>net48</TargetFramework>
     <UseWpf>true</UseWpf>
 	<LangVersion>11.0</LangVersion>
+	<RootNamespace>MPD.TeklaWPFViewModelToolkit</RootNamespace>
+    <AssemblyName>MPD.TeklaWPFViewModelToolkit</AssemblyName>
 
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>TeklaPluginWPFViewModelToolkit</PackageId>
-    <Version>0.0.3</Version> 
+    <PackageId>MPD.TeklaPluginWPFViewModelToolkit</PackageId>
+    <Version>0.0.4</Version> 
 	<Authors>Main Part Design</Authors>
     <Description>Library with WPF controls and Source Generation for Tekla WPF plugins.</Description>
   </PropertyGroup>
@@ -38,7 +40,7 @@
 
   <Target Name="AddGeneratorToPackage">
     <ItemGroup>
-      <TfmSpecificPackageFile Include="..\TeklaWPFViewModelGenerator\bin\$(Configuration)\netstandard2.0\TeklaWPFViewModelGenerator.dll" 
+      <TfmSpecificPackageFile Include="..\TeklaWPFViewModelGenerator\bin\$(Configuration)\netstandard2.0\MPD.TeklaWPFViewModelGenerator.dll" 
                               PackagePath="analyzers/dotnet/cs" />
     </ItemGroup>
   </Target>

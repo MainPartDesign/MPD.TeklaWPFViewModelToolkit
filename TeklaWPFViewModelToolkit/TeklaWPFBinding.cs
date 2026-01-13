@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace TeklaWPFViewModelToolkit
+namespace MPD.TeklaWPFViewModelToolkit
 {
     public interface ITeklaWPFBinding
     {

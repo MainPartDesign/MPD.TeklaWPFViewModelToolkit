@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using TeklaWPFViewModelToolkit;
+using MPD.TeklaWPFViewModelToolkit;
 using Tekla.Structures.Plugins;
 
-namespace TeklaWPFViewModelGenerator.IntegrationTests;
+namespace MPD.TeklaWPFViewModelGenerator.IntegrationTests;
 
 // This attribute is filtered by source generator
 // and classes should be created based on its arguments.

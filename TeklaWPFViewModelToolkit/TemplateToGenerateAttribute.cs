@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TeklaWPFViewModelToolkit
+namespace MPD.TeklaWPFViewModelToolkit
 {
     /// <summary>
     /// Attribute to mark class as a template for source generator, which outputs partial classes.

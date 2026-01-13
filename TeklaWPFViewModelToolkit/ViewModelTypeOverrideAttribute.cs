@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TeklaWPFViewModelToolkit
+namespace MPD.TeklaWPFViewModelToolkit
 {
     /// <summary>
     /// Attribute to change Tekla's dialog property type in generated viewModel, use Tekla datatype as generic type.

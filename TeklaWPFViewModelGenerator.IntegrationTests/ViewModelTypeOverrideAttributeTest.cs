@@ -1,9 +1,9 @@
 ﻿using Xunit;
 using Tekla.Structures.Plugins;
-using TeklaWPFViewModelToolkit;
+using MPD.TeklaWPFViewModelToolkit;
 using TD = Tekla.Structures.Datatype;
 
-namespace TeklaWPFViewModelGenerator.IntegrationTests;
+namespace MPD.TeklaWPFViewModelGenerator.IntegrationTests;
 
 [TemplateToGenerate("PluginModelTestDummy", "OverridenPropTypeVMDummy")]
 internal class OverridenViewModelPropDummy

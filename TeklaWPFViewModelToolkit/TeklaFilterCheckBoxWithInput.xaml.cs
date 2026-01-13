@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace TeklaWPFViewModelToolkit 
+namespace MPD.TeklaWPFViewModelToolkit 
 {
     public partial class TeklaFilterCheckBoxWithInput : UserControl
     {

@@ -2,11 +2,11 @@
 using System.Reflection;
 using Xunit;
 using Tekla.Structures.Dialog;
-using TeklaWPFViewModelToolkit;
+using MPD.TeklaWPFViewModelToolkit;
 using Xunit.Sdk;
 using System.ComponentModel;
 
-namespace TeklaWPFViewModelGenerator.IntegrationTests;
+namespace MPD.TeklaWPFViewModelGenerator.IntegrationTests;
 
 public static class GeneratorAssertions
 {
