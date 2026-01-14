@@ -104,6 +104,24 @@ public class TemplateToGenerateAttributeTest
     }
 
     [Fact]
+    public void PluginModel_PropertiesReturnCorrectValues()
+    {
+        var model = new PluginModelDummy();
+        string expectedString = "test";
+        int expectedInt = 111;
+        double expectedDouble = 69.69;
+        // Simulation of Tekla's behavior populating fields with non values.
+        model._test = expectedString;
+        model._check = expectedInt;
+        model._doubleCheck = expectedDouble;
+
+
+        Assert.Equal(expectedString, model.Test);
+        Assert.Equal(expectedInt, model.Check);
+        Assert.Equal(expectedDouble, model.DoubleCheck);
+    }
+
+    [Fact]
     public void ViewModel_HasCorrectPropertiesWithAttributes()
     {
         var viewModelType = typeof(ViewModelDummy);
