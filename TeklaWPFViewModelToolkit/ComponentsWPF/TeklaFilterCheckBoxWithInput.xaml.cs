@@ -37,7 +37,7 @@ namespace MPD.TeklaWPFViewModelToolkit
 
             FilterCheckBox.AttributeName = Property.FieldName;
 
-            TextBox.SetBinding(
+            InputTextBox.SetBinding(
                 TextBox.TextProperty,
                 new System.Windows.Data.Binding(nameof(ITeklaWPFBinding.Value))
                 {

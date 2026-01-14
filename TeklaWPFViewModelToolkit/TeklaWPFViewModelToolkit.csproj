@@ -9,13 +9,16 @@
 
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>MPD.TeklaPluginWPFViewModelToolkit</PackageId>
-    <Version>0.0.4</Version> 
+    <Version>0.0.7</Version> 
 	<Authors>Main Part Design</Authors>
     <Description>Library with WPF controls and Source Generation for Tekla WPF plugins.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="TeklaFilterCheckBoxWithInput.xaml.cs">
+    <Compile Update="ComponentsWPF\TeklaFilterCheckBoxWithInput.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ComponentsWPF\TeklaLabelCheckBoxWithInput.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -28,10 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TeklaWPFViewModelGenerator\TeklaWPFViewModelGenerator.csproj"
-       ReferenceOutputAssembly="false" 
-	   Pack="true" 
-	   />
+    <ProjectReference Include="..\TeklaWPFViewModelGenerator\TeklaWPFViewModelGenerator.csproj" ReferenceOutputAssembly="false" Pack="true" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -40,8 +40,7 @@
 
   <Target Name="AddGeneratorToPackage">
     <ItemGroup>
-      <TfmSpecificPackageFile Include="..\TeklaWPFViewModelGenerator\bin\$(Configuration)\netstandard2.0\MPD.TeklaWPFViewModelGenerator.dll" 
-                              PackagePath="analyzers/dotnet/cs" />
+      <TfmSpecificPackageFile Include="..\TeklaWPFViewModelGenerator\bin\$(Configuration)\netstandard2.0\MPD.TeklaWPFViewModelGenerator.dll" PackagePath="analyzers/dotnet/cs" />
     </ItemGroup>
   </Target>
 
