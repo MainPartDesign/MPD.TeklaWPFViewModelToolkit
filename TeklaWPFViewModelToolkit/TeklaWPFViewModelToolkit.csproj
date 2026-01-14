@@ -9,9 +9,12 @@
 
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>MPD.TeklaPluginWPFViewModelToolkit</PackageId>
-    <Version>0.0.7</Version> 
+    <Version>0.0.10</Version> 
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>Main Part Design</Authors>
-    <Description>Library with WPF controls and Source Generation for Tekla WPF plugins.</Description>
+    <Description>Library for generating and binding of Plugin Data Models and View Models for Tekla WPF plugins.</Description>
+	<PackageReadmeFile>nuget-readme.md</PackageReadmeFile>
+	<PackageTags>Trimble Tekla Plugin WPF</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,6 +35,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TeklaWPFViewModelGenerator\TeklaWPFViewModelGenerator.csproj" ReferenceOutputAssembly="false" Pack="true" />
+	<None Include="nuget-readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <PropertyGroup>
