@@ -120,7 +120,7 @@ namespace MPD.TeklaWPFViewModelGenerator
 
             foreach (var field in fields)
             {
-                var rangeAttr = field.AttributeLists
+                AttributeSyntax rangeAttr = field.AttributeLists
                             .SelectMany(al => al.Attributes)
                             .FirstOrDefault(a => a.Name.ToString().Contains(_useInitializerOutsideRangeAttName));
 
@@ -130,17 +130,22 @@ namespace MPD.TeklaWPFViewModelGenerator
                     string fieldName = variable.Identifier.Text;
                     string internalFieldName = GetInternalFieldName(fieldName);
                     string propertyName = GetPublicPropertyName(fieldName);
+                    bool addDefault = variable.Initializer is not null;
                     string defaultValue =
-                        variable.Initializer is null ? "default" : variable.Initializer.Value.ToString();
+                        addDefault ? variable.Initializer.Value.ToString() : "default";
 
                     sb.AppendLine($"        [StructuresField(nameof({propertyName}))]");
                     sb.AppendLine($"        public {typeName} {internalFieldName};");
-                    sb.AppendLine($"        private const {typeName} {internalFieldName}Default = {defaultValue};");
+                    if (addDefault)
+                    {
+                        sb.AppendLine(
+                                  $"        private const {typeName} {internalFieldName}Default = {defaultValue};");
+                    }
                     sb.AppendLine($"        public {typeName} {propertyName}");
                     sb.AppendLine("        {");
                     sb.AppendLine($"            get");
                     sb.AppendLine("            {");
-                    AppendPropertyGetterBody(sb, typeName, internalFieldName, rangeAttr);
+                    AppendPropertyGetterBody(sb, typeName, internalFieldName, addDefault, rangeAttr);
                     sb.AppendLine("            }");
                     sb.AppendLine($"            set {{ {internalFieldName} = value; }}");
                     sb.AppendLine("        }");
@@ -156,27 +161,31 @@ namespace MPD.TeklaWPFViewModelGenerator
             StringBuilder sb,
             string typeName,
             string internalFieldName,
+            bool addDefault,
             AttributeSyntax rangeAttr)
         {
-            if (rangeAttr?.ArgumentList is null || rangeAttr.ArgumentList.Arguments.Count < 2)
+            if (addDefault)
             {
-                // Default check with helper if attrubute UseInitializerValueOutsideRange is missing.
-                sb.AppendLine($"                if (DefaultValueHelper.IsDefaultValue({internalFieldName})) return {internalFieldName}Default;");
-            }
-            else
-            {
-                var min = rangeAttr.ArgumentList.Arguments[0].Expression.ToString();
-                var max = rangeAttr.ArgumentList.Arguments[1].Expression.ToString();
-
-                if (typeName == "string")
+                if (rangeAttr?.ArgumentList is null || rangeAttr.ArgumentList.Arguments.Count < 2)
                 {
-                    sb.AppendLine($"                if ({internalFieldName}.Length < {min} || {internalFieldName}.Length > {max})");
-                    sb.AppendLine($"                    return {internalFieldName}Default;");
+                    // Default check with helper if attrubute UseInitializerValueOutsideRange is missing but initializer is present.
+                    sb.AppendLine($"                if (DefaultValueHelper.IsDefaultValue({internalFieldName})) return {internalFieldName}Default;");
                 }
-                else if (typeName == "int" || typeName == "double")
+                else
                 {
-                    sb.AppendLine($"                if ({internalFieldName} < {min} || {internalFieldName} > {max})");
-                    sb.AppendLine($"                    return {internalFieldName}Default;");
+                    var min = rangeAttr.ArgumentList.Arguments[0].Expression.ToString();
+                    var max = rangeAttr.ArgumentList.Arguments[1].Expression.ToString();
+
+                    if (typeName == "string")
+                    {
+                        sb.AppendLine($"                if ({internalFieldName}.Length < {min} || {internalFieldName}.Length > {max})");
+                        sb.AppendLine($"                    return {internalFieldName}Default;");
+                    }
+                    else if (typeName == "int" || typeName == "double")
+                    {
+                        sb.AppendLine($"                if ({internalFieldName} < {min} || {internalFieldName} > {max})");
+                        sb.AppendLine($"                    return {internalFieldName}Default;");
+                    }
                 }
             }
             sb.AppendLine($"                return {internalFieldName};");

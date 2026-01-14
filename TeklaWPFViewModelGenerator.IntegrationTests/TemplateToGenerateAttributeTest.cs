@@ -73,7 +73,6 @@ public class TemplateToGenerateAttributeTest
         var pluginModelType = typeof(PluginModelDummy);
         
         // Check that default value constants exist
-        GeneratorAssertions.AssertDefaultValueConstant(pluginModelType, "_testDefault", default(string));
         GeneratorAssertions.AssertDefaultValueConstant(pluginModelType, "_checkDefault", 5);
         GeneratorAssertions.AssertDefaultValueConstant(pluginModelType, "_doubleCheckDefault", 3.14);
     }
@@ -100,7 +99,6 @@ public class TemplateToGenerateAttributeTest
         model._check = int.MinValue;
         model._doubleCheck = (double)int.MinValue;
 
-        Assert.Equal(default(string), model.Test);
         Assert.Equal(5, model.Check);
         Assert.Equal(3.14, model.DoubleCheck);
     }

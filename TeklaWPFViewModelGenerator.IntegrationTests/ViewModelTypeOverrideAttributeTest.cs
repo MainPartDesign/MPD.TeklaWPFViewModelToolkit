@@ -66,7 +66,6 @@ public class ViewModelTypeOverrideAttributeTest
         var pluginModelType = typeof(PluginModelTestDummy);
         
         // Check that default value constants exist
-        GeneratorAssertions.AssertDefaultValueConstant(pluginModelType, "_strictDoubleDefault", default(double));
         GeneratorAssertions.AssertDefaultValueConstant(pluginModelType, "_strictBooleanDefault", 1);
     }
 
@@ -90,7 +89,6 @@ public class ViewModelTypeOverrideAttributeTest
         model._strictDouble = (double)int.MinValue;
 
         Assert.Equal(1, model.StrictBoolean);
-        Assert.Equal(default(double), model.StrictDouble);
     }
 
     [Fact]
