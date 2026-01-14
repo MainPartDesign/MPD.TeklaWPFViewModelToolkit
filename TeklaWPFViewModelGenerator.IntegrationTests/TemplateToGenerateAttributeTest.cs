@@ -110,7 +110,7 @@ public class TemplateToGenerateAttributeTest
         string expectedString = "test";
         int expectedInt = 111;
         double expectedDouble = 69.69;
-        // Simulation of Tekla's behavior populating fields with non values.
+        // Simulation of Tekla's behavior populating fields with non default values.
         model._test = expectedString;
         model._check = expectedInt;
         model._doubleCheck = expectedDouble;
@@ -144,15 +144,15 @@ public class TemplateToGenerateAttributeTest
         // Check internal properties with StructuresDialog attribute
         GeneratorAssertions.AssertTeklaProperty<Tekla.Structures.Datatype.String>(
             viewModelType, "TeklaTestProperty", _stringAttrName, 
-            "InternalTestProperty should exist for string field");
+            "TeklaTestProperty should exist for string field");
             
         GeneratorAssertions.AssertTeklaProperty<Tekla.Structures.Datatype.Integer>(
             viewModelType, "TeklaCheckProperty", _intAttrName, 
-            "InternalCheckProperty should exist for int field");
+            "TeklaCheckProperty should exist for int field");
             
         GeneratorAssertions.AssertTeklaProperty<Tekla.Structures.Datatype.Distance>(
             viewModelType, "TeklaDoubleCheckProperty", _doubleAttrName, 
-            "InternalDoubleCheckProperty should exist for double field");
+            "TeklaDoubleCheckProperty should exist for double field");
     }
 
 }
