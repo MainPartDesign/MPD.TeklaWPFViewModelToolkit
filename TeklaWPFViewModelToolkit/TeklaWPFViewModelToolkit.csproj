@@ -9,7 +9,6 @@
 
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>MPD.TeklaPluginWPFViewModelToolkit</PackageId>
-    <Version>0.0.10</Version> 
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>Main Part Design</Authors>
     <Description>Library for generating and binding of Plugin Data Models and View Models for Tekla WPF plugins.</Description>
@@ -27,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MinVer" Version="7.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Tekla.Structures.Dialog" Version="2025.0.0">
       <IncludeAssets>compile;build</IncludeAssets>
 	  <PrivateAssets>all</PrivateAssets>
