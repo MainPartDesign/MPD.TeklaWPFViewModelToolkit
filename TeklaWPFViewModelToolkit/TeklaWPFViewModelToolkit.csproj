@@ -53,6 +53,9 @@
   <PropertyGroup>
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);AddGeneratorToPackage</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
+  <PropertyGroup>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+  </PropertyGroup>
 
   <Target Name="AddGeneratorToPackage">
     <ItemGroup>

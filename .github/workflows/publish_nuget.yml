@@ -27,7 +27,18 @@ jobs:
           dotnet test --configuration Release --no-build
 
       - name: Pack
-        run: dotnet pack TeklaWPFViewModelToolkit/TeklaWPFViewModelToolkit.csproj --configuration Release --no-build -o out
+        id: pack_step
+        shell: pwsh
+        run: |
+          # 1. Pack into a specific temp folder
+          dotnet pack TeklaWPFViewModelToolkit/TeklaWPFViewModelToolkit.csproj --configuration Release --no-build -o ./out
+          
+          # 2. Find the exact name of the generated nupkg
+          $packagePath = Get-ChildItem -Path "./out/*.nupkg" -Exclude "*.snupkg" | Select-Object -ExpandProperty FullName -First 1
+          
+          # 3. Save this path to the GitHub Environment for the next step
+          echo "PACKAGE_PATH=$packagePath" >> $env:GITHUB_ENV
+          Write-Host "Saved Package Path: $packagePath"
 
       - name: NuGet login (OIDC temp API key)
         uses: NuGet/login@v1
@@ -41,18 +52,4 @@ jobs:
       - name: Publish to NuGet
         shell: pwsh
         run: |
-          # Find the .nupkg file in the out directory
-          $packageFile = Get-ChildItem -Path "out/*.nupkg" -Exclude "*.snupkg" | Select-Object -First 1
-          
-          if ($null -eq $packageFile) {
-              Write-Error "No .nupkg file found in the 'out' directory!"
-              exit 1
-          }
-          Write-Host "Found package: $($packageFile.FullName)"
-          
-          dotnet nuget push $packageFile.FullName `
-            --api-key ${{ steps.login.outputs.NUGET_API_KEY }} `
-            --source https://api.nuget.org/v3/index.json `
-            --skip-duplicate
-
-
+          dotnet nuget push "$env:PACKAGE_PATH" --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
