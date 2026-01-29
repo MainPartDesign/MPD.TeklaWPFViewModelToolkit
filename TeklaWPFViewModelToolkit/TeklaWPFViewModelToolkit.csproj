@@ -14,6 +14,15 @@
     <Description>Library for generating and binding of Plugin Data Models and View Models for Tekla WPF plugins.</Description>
 	<PackageReadmeFile>nuget-readme.md</PackageReadmeFile>
 	<PackageTags>Trimble Tekla Plugin WPF</PackageTags>
+
+	<PackageProjectUrl>https://github.com/MainPartDesign/MPD.TeklaWPFViewModelToolkit</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MainPartDesign/MPD.TeklaWPFViewModelToolkit.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+	<IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 
   <ItemGroup>
