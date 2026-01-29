@@ -16,7 +16,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          filter: tree:0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -38,3 +37,22 @@ jobs:
 
       - name: Publish to NuGet
         run: dotnet nuget push out/*.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      - name: Publish to NuGet
+        shell: pwsh
+        run: |
+          # Find the .nupkg file in the out directory
+          $packageFile = Get-ChildItem -Path "out/*.nupkg" -Exclude "*.snupkg" | Select-Object -First 1
+          
+          if ($null -eq $packageFile) {
+              Write-Error "No .nupkg file found in the 'out' directory!"
+              exit 1
+          }
+          Write-Host "Found package: $($packageFile.FullName)"
+          
+          dotnet nuget push $packageFile.FullName `
+            --api-key ${{ steps.login.outputs.NUGET_API_KEY }} `
+            --source https://api.nuget.org/v3/index.json `
+            --skip-duplicate
+
+
