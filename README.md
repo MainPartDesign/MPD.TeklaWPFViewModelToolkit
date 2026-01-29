@@ -30,9 +30,8 @@ public partial class ViewModel : IYourCustomInterface
     // Implement custom logic here.
 }
 ```
-Gererated code is easy to view and debug.
 
-4. You can wire up plugin data model and view model now.
+4. You can wire up plugin data model and view model now. Gererated classes are easy to view and debug.
 ```csharp
 [Plugin("WPFPlugin")]
 [PluginUserInterface("WPFPlugin.MainWindow")]
