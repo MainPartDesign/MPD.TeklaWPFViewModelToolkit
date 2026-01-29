@@ -47,9 +47,6 @@ jobs:
           user: ${{ secrets.NUGET_USER }} 
 
       - name: Publish to NuGet
-        run: dotnet nuget push out/*.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
-
-      - name: Publish to NuGet
         shell: pwsh
         run: |
           dotnet nuget push "$env:PACKAGE_PATH" --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
