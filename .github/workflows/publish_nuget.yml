@@ -30,11 +30,11 @@ jobs:
       - name: Pack
         run: dotnet pack TeklaWPFViewModelToolkit/TeklaWPFViewModelToolkit.csproj --configuration Release --no-build -o out
 
-      - name: NuGet login (OIDC → temp API key)
+      - name: NuGet login (OIDC temp API key)
         uses: NuGet/login@v1
         id: login
         with:
-          user: MainPartDesign 
+          user: ${{ secrets.NUGET_USER }} 
 
       - name: Publish to NuGet
         run: dotnet nuget push out/*.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
