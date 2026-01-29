@@ -1,0 +1,40 @@
+name: Publish NuGet
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: tree:0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+
+      - name: Build & Test
+        run: |
+          dotnet restore TeklaWPFViewModelToolkit.sln
+          dotnet build TeklaWPFViewModelToolkit.sln --configuration Release --no-restore
+          dotnet test --configuration Release --no-build
+
+      - name: Pack
+        run: dotnet pack TeklaWPFViewModelToolkit/TeklaWPFViewModelToolkit.csproj --configuration Release --no-build -o out
+
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: MainPartDesign 
+
+      - name: Publish to NuGet
+        run: dotnet nuget push out/*.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
