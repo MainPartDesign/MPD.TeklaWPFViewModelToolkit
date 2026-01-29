@@ -23,8 +23,8 @@ namespace MPD.TeklaWPFViewModelGenerator
 
             var compilation = context.CompilationProvider.Combine(provider.Collect());
 
-            context.RegisterSourceOutput(compilation,
-                static (spc, source) => Execute(source.Left, source.Right, spc));
+            //context.RegisterSourceOutput(compilation,
+            //    static (spc, source) => Execute(source.Left, source.Right, spc));
         }
 
         private static ClassDeclarationSyntax GetClassForGeneration(GeneratorSyntaxContext context)
