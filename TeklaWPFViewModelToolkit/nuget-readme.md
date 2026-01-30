@@ -1,4 +1,4 @@
-# MPD.TeklaWPFViewModelToolkit
+### TeklaWPFViewModelToolkit
 ### by [Main Part Design LTD](https://woodencon.com/)
 Use single template class to generate code for most of your plugin data model and view model and have a typesafe way of binding it in xaml.
 
