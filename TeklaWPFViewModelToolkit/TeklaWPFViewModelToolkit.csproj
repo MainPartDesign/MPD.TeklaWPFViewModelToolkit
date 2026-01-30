@@ -8,7 +8,7 @@
     <AssemblyName>MPD.TeklaWPFViewModelToolkit</AssemblyName>
 
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>MPD.TeklaPluginWPFViewModelToolkit</PackageId>
+    <PackageId>TeklaPluginWPFViewModelToolkit</PackageId>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>Main Part Design</Authors>
     <Description>Library for generating and binding of Plugin Data Models and View Models for Tekla WPF plugins.</Description>
