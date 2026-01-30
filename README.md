@@ -1,7 +1,8 @@
 # TeklaWPFViewModelToolkit
 ### by [Main Part Design LTD](https://woodencon.com/)
+[![NuGet](https://img.shields.io/nuget/v/TeklaPluginWPFViewModelToolkit.svg)](https://www.nuget.org/packages/TeklaPluginWPFViewModelToolkit/)
 
-Use single template class to generate code for most of your plugin data model and view model and have a typesafe way of binding it in xaml.
+Use single template class to generate code for most of your Tekla Structures WPF plugin data model and view model and have a typesafe way of binding it in xaml.
 
 # Usage
 
