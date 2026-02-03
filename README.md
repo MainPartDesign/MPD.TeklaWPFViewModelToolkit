@@ -100,6 +100,8 @@ public class WPFPlugin : PluginBase
     />
 ```
 
+7. Dont forget to pack `MPD.TeklaWPFViewModelToolkit.dll` along with your plugin .dll's!
+
 # Additional Features
 
 Attribute `ViewModelTypeOverride<T>` allows to change type of your `ViewModel` properties.
